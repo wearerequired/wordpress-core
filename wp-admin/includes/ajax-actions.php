@@ -2567,6 +2567,16 @@ function wp_ajax_upload_attachment() {
 
 	$attachment = wp_prepare_attachment_for_js( $attachment_id );
 	if ( ! $attachment ) {
+		echo wp_json_encode(
+			array(
+				'success' => false,
+				'data'    => array(
+					'message'  => __( 'The uploaded file could not be prepared for JavaScript. Please try again.' ),
+					'filename' => esc_html( $_FILES['async-upload']['name'] ),
+				),
+			)
+		);
+
 		wp_die();
 	}
 
